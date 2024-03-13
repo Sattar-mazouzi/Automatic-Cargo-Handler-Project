@@ -8,14 +8,14 @@
 
 ![MATLAB-GUI](Figures/image.png)
 
-    In the user interface the robot can be started/stopped and two options are given which enable the robot to run either manually or automatically, depending on the user's preference. Moreover, there is a section in the UI window where you can stream the robot view that is provided by the camera, which you can view in real time.  
+In the user interface the robot can be started/stopped and two options are given which enable the robot to run either manually or automatically, depending on the user's preference. Moreover, there is a section in the UI window where you can stream the robot view that is provided by the camera, which you can view in real time.  
 
 * __Start the Robot:__
 
-        __1rst:__ The  IP of the camera mounted on the robot must be entered;
-        _Note: in this example a smartphone was used as the camera wit the aid of the IPcam android apps that let's you stream your phone camera to the network_
+     __1rst:__ The  IP of the camera mounted on the robot must be entered;
+    _Note: in this example a smartphone was used as the camera wit the aid of the IPcam android apps that let's you stream your phone camera to the network_
 
-        __2nd:__  Ofter entering the correct camera IP, then the serial port of the transmitter system must be chosen; _Note: the serial port is the port that the Arduino board of the transmitter part is connected to_
+    __2nd:__  Ofter entering the correct camera IP, then the serial port of the transmitter system must be chosen; _Note: the serial port is the port that the Arduino board of the transmitter part is connected to_
     After that, Hit the start button and than select on of two modes:
 
 * __manual control:__
@@ -33,20 +33,20 @@ the following flow chart explains the main operating flow of the robot Furthermo
 
 #### 2.1. Videos Streaming through the camera
 
-    a camera is mounted to the robot and connected to a local wifi which can stream the video to the computer where teh image processing takes a place.
+a camera is mounted to the robot and connected to a local wifi which can stream the video to the computer where teh image processing takes a place.
 
 #### 2.2 Image processing Using MATLAB
 
-    It is this part of the robot that is the most important. Using Matlab, the entire image processing process has been carried out. The task can be divided into several parts:
-    An object is located after the video has been captured, the frame of the video is processed, the filtering and color detection are applied, and finally, the location of the object is determined, after that the data ar sent through serial transmission to the transmitter system.
+It is this part of the robot that is the most important. Using Matlab, the entire image processing process has been carried out. The task can be divided into several parts:
+An object is located after the video has been captured, the frame of the video is processed, the filtering and color detection are applied, and finally, the location of the object is determined, after that the data ar sent through serial transmission to the transmitter system.
 
 #### 2.3 Data transmission through transmitter subsystem
 
-    To send commands from MATLAB to the robot, we used an RF module (nRF24L01). This module is a pair, with one connected to the Arduino Uno that receives the serial data from MATLAB, and the other one connected to the Arduino MEGA 2560 in the robot. The serial data is transmitted between the two Arduino boards  over radio communication.
+To send commands from MATLAB to the robot, we used an RF module (nRF24L01). This module is a pair, with one connected to the Arduino Uno that receives the serial data from MATLAB, and the other one connected to the Arduino MEGA 2560 in the robot. The serial data is transmitted between the two Arduino boards  over radio communication.
 
 #### 2.4 the robot executes the received commands
 
-    The robot executes the command for either from manual or atu mode.
+The robot executes the command for either from manual or atu mode.
 
 ## System components
 
@@ -54,11 +54,11 @@ The robot has three subsystems that are responsible od the whole operation:
 
 ### 1. Computer (Matlab)
 
-    this part is the part responsible of image processing  of the video, extracting information and sending command to teh the transmitter subsystem. 
+This part is the part responsible of image processing  of the video, extracting information and sending command to teh the transmitter subsystem.
 
 ### 2. Transmitter subsystem
 
-    In this subsystem  wireless data transmission was carried out, this system  has to main tasks: Receive data from the computer and send data to the robot through RF module. there are two component: 
+In this subsystem  wireless data transmission was carried out, this system  has to main tasks: Receive data from the computer and send data to the robot through RF module. there are two component:
 
 * __Arduino board:__ Receive command form the computer:
  Arduino Uno connected to he PC to transmit the serial data from the Matlab to the Bot using RF module
@@ -77,10 +77,29 @@ A tutorial of how to connect the RF with arduino can be found in: [nRF24L01 – 
 
 ![RF-Arduino](Figures/NRF24L01-and-Arduino.png)
 
-    _The code of the transmitter subsystem can be found in the folder named "Transmitter code"_
+The code of the transmitter subsystem can be found in the folder named "Computer Transmitter code"
 
 ### 3. Robot subsystem
 
-    The mobile robot has two  parts: the Robot cart and the robot arms as shown in the following figures: 
+The mobile robot has two  parts: the Robot cart and the robot arms as shown in the following figures:
 ![Robot-front-view](Figures/Robot-front-view.jpg)
 ![Robot-up-view](Figures/Robot-up-view.jpg)
+
+* __Robot cart:__  
+
+The robot cart is designed with three wheels and is responsible for navigation, holding the camera, and holding and  controlling the robot arm, as well as receiving data from the transmitter subsystem using the RF module, The cart is operated using two rear wheels and is controlled by an Arduino Mega, which controls the DC motor drive module (L298N).
+a tutorial of [L298N DC Motor Driver Module with Arduino](https://www.circuits-diy.com/l298n-dc-motor-driver-module-with-arduino/)
+
+![Mega-motor](Figures/Mega-wheels-motor.png)
+
+* __Robot Arm:__ The robot arms responsible of picking and dropping objects, . the following sketch shows the structure of the robot arm.
+
+![Robot-Arm](Figures/Robot-Arm.png)
+
+The arm can moves  using two servo motors, on is used to move the arm  vertically up and down the model was used is MG996R , and the other used to close and open the arm (horizontally), the SG90 model was used
+
+![Servo-motors](Figures/Servos_motors.jpg)
+
+## Conclusion
+
+This project provided a practical learning experience in control systems by working with a combination of image processing signal data and machine tasks.
